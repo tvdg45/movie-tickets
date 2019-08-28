@@ -1,0 +1,28 @@
+trigger SaveCinema on Cinema__c (before insert, before update, after insert, after update) {
+
+    if (Trigger.isBefore) {
+        
+        if (Trigger.isInsert || Trigger.isUpdate) {
+            
+            for (Cinema__c eachCinema: Trigger.new) {
+                
+                if (eachCinema.Country__c.Contains('US') || eachCinema.Country__c.Contains('United States')) {
+
+                	try {
+
+                		if (integer.valueOf(eachCinema.ZipCode__c) < 0
+                    		|| integer.valueOf(eachCinema.ZipCode__c) > 99999
+                           	|| eachCinema.ZipCode__c.length() != 5) {
+                    
+                    		eachCinema.addError('Zip code must be between 00000 and 99999.  Zip code must also ' +
+                                               'be five characters.');
+                		}                    
+                	} catch (Exception e) {
+                    
+                    	eachCinema.addError('Zip code must be between 00000 and 99999.');
+                	}                    
+                }
+            }
+        }
+    }
+}
