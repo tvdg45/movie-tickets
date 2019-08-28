@@ -1,0 +1,124 @@
+<apex:page docType="html-5.0" controller="FindShowTimes" title="Review all of your movies and cinema showtimes">
+    <style>
+        img { max-width: 90%; }
+        
+        label { font-size: 14pt; }
+        label:hover { font-size: 14pt; cursor: text; }
+        
+        @media only screen and (min-width: 1001px) {
+            
+            h1 { color: white; font-size: 30pt; }
+            #responsiveDiv { width: 70%; margin-left: 15%; margin-right: 15%; }
+            input, input[type="submit"], input[type="button"], select { font-size: 16pt; }
+        }
+
+        @media only screen and (max-width: 1000px) {
+
+            h1 { color: white; font-size: 20pt; }
+            #responsiveDiv { width: 90%; margin-left: 5%; margin-right: 5%; }
+            input, input[type="submit"], input[type="button"], select { font-size: 14pt; }
+        }
+        
+        #bodyDiv, body { background-color: #000080; }
+        
+        #pageDiv {
+        
+            background-image: -webkit-repeating-linear-gradient(135deg, rgba(0,0,0,.3), rgba(0,0,0,.3) 1px, transparent 2px, transparent 2px, rgba(0,0,0,.3) 3px);
+            background-image: -moz-repeating-linear-gradient(135deg, rgba(0,0,0,.3), rgba(0,0,0,.3) 1px, transparent 2px, transparent 2px, rgba(0,0,0,.3) 3px);
+            background-image: -o-repeating-linear-gradient(135deg, rgba(0,0,0,.3), rgba(0,0,0,.3) 1px, transparent 2px, transparent 2px, rgba(0,0,0,.3) 3px);
+            background-image: repeating-linear-gradient(135deg, rgba(0,0,0,.3), rgba(0,0,0,.3) 1px, transparent 2px, transparent 2px, rgba(0,0,0,.3) 3px);
+            -webkit-background-size: 4px 4px;
+            -moz-background-size: 4px 4px;
+            background-size: 4px 4px;
+        }
+        
+        form { background: transparent;}
+        
+        input[type="text"], input[type="datetime-local"], select { 
+            
+            background-color: white;
+            color: black;
+            border: 2px solid; 
+            border-color: white;
+        }
+        
+        input[type="text"]:focus, input[type="datetime-local"]:focus, select:focus { 
+            
+            background-color: white;
+            color: red;
+            border: 2px solid; 
+            border-color: red;
+        }
+        
+        input[type="submit"], input[type="button"] {
+        
+            background: red;
+            border: 2px solid; 
+            border-color: red; 
+            color: white;
+            border-top-left-radius: 50px 50px;
+            border-bottom-left-radius: 50px 50px;
+            border-top-right-radius: 50px 50px;
+            border-bottom-right-radius: 50px 50px;
+        }
+        
+        input[type="submit"]:hover,
+        input[type="submit"]:focus,
+        input[type="button"]:hover,
+        input[type="button"]:focus { background: white; border: 2px solid; border-color: red; color: red; cursor: pointer; }
+    </style>
+    <div id="bodyDiv">
+    <div id="pageDiv">
+        <div id="responsiveDiv">
+            <apex:form >
+                <div id="formSection">
+                	<div style="padding-top: 30px">
+                    	<h1>Review all of your movies and cinema showtimes.</h1>
+                	</div>
+                	<div style="padding-top: 30px">
+                    	<label><span style="font-size: 14pt; color: white">If you are running a wildcard search on a search term, leave that term unanswered.</span></label>
+                    	<br /><br />
+                	</div>
+                	<div>
+                    	<label><span style="font-size: 14pt; color: white">Cinema:</span></label>
+                	</div>
+                	<div>
+                    	<apex:selectList size="1" value="{!cinema}" style="width: 98%">
+                        	<apex:selectOptions value="{!cinemaPicklist}" />
+                    	</apex:selectList>            
+                	</div>
+                	<div>
+                    	<br /><br />
+                    	<label><span style="font-size: 14pt; color: white">Movie title:</span></label> 
+                	</div>
+                	<div>
+                    	<apex:input value="{!movieTitle}" type="text" style="width: 98%" /> 
+                	</div>
+                	<div>
+                    	<br /><br />
+                    	<label><span style="font-size: 14pt; color: white">Show date and time from:</span></label> 
+                	</div>
+                	<div>
+                    	<apex:input value="{!showDateTimeBeginningIn}" type="datetime-local" style="width: 98%" /> 
+                	</div>
+                	<div>
+                    	<br /><br />
+                    	<label><span style="font-size: 14pt; color: white">to:</span></label> 
+                	</div>
+                	<div>
+                    	<apex:input value="{!showDateTimeEndingIn}" type="datetime-local" style="width: 98%" /> 
+                	</div>
+                	<div>
+                    	<br /><br />
+                    	<apex:commandButton action="{!triggerSearch}" value="Search" /> 
+                	</div>
+                </div>
+                <div style="padding-bottom: 30px">
+                    <br /><br />
+                    <apex:outputText value="{!searchResults}" style="width: 98%" escape="false" />
+                </div>
+            </apex:form>
+        </div>
+    </div>
+    </div>
+</apex:page>
